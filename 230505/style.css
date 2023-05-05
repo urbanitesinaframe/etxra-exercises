@@ -1,0 +1,72 @@
+:root {
+  --button-color: rgb(205, 205, 205);
+  --font-color: black;
+  --emphasize: bold;
+  --border-color: grey;
+}
+
+h1 {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+html {
+  font-family: sans-serif;
+}
+body {
+  max-width: 500px;
+  display: flex;
+  border: 4px solid grey;
+  border-radius: 10px;
+}
+
+main {
+  margin: 1.5rem;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.refresh-status {
+  font-size: 1rem;
+  color: var(--border-color);
+}
+
+img {
+  justify-self: start;
+  max-width: 65px;
+  border-radius: 50%;
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: 2px solid grey;
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+}
+
+_.name {
+  justify-self: flex-start;
+}
+
+#read-more {
+  font-weight: var(--emphasize);
+  margin-left: auto;
+}
+
+button {
+  border: none;
+  background-color: var(--button-color);
+  border-radius: 5px;
+  padding: 0.5rem 2rem;
+}
