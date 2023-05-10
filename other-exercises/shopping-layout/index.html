@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css@latest/normalize.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping-Layout</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Quicksand&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <!--shoe 1-->
+        <article>
+            <div class="header-img">
+
+                <img class="article-img" src="https://images.unsplash.com/photo-1560072810-1cffb09faf0f"
+                    alt="a pair of blue asics running shoes">
+                <div class="overlay"></div>
+                <p class="copyright">Photo by: Maksim Larin</p>
+                <p class="banner">Free Shipping!</p>
+            </div>
+
+            <header class="article-header">
+                <h2> Asics </h2>
+            </header>
+            <section class="article-description">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, necessitatibus. Unde assumenda
+                    iste iure libero impedit recusandae officiis rerum sequi. Minima, tempore sed ratione adipisci error
+                    repellendus corrupti explicabo deserunt.
+                </p>
+            </section>
+            <section class="details">
+                <form>
+                    <div class="pricetag">
+                        <p id="currency-sign">$</p>
+                        <input class="price" type="number" name="price" aria-label="Price" value="65" readonly></input>
+                        <p id="currency">USD</p>
+                    </div>
+                    <div class="order-input">
+                        <div class="shoesize">
+                            <label for="shoesize">Size</label>
+                            <select aria-label="Size" name="shoesize" id="size-select">
+                                <option aria-label="null" value="0"></option>
+                                <option aria-label="Size 6" value="6">6</option>
+                                <option aria-label="Size 7" value="7">7</option>
+                                <option aria-label="Size 8" value="8">8</option>
+                                <option aria-label="Size 9" value="9">9</option>
+                                <option aria-label="Size 10" value="10">10</option>
+                                <option aria-label="Size 11" value="11">11</option>
+                            </select>
+                        </div>
+                        <div class="quantity">
+                            <label for="quantity">Quantity</label>
+                            <select aria-label="Quantity" name="quantity" id="fuantity-select">
+                                <option aria-label="null" value="0"></option>
+                                <option aria-label="1" value="1">1</option>
+                                <option aria-label="2" value="2">2</option>
+                                <option aria-label="3" value="3">3</option>
+                                <option aria-label="4" value="4">4</option>
+                                <option aria-label="5" value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="color-picker">
+                        <label for="colors">Colors: </label>
+                        <div class="colors">
+                            <input type="radio" id="blue" name="color" aria-label="blue" value="color-blue" />
+                            <input type="radio" id="orange" name="color" aria-label="orange" value="color-orange" />
+                            <input type="radio" id="black" name="color" aria-label="black" value="color-black" />
+                        </div>
+                    </div>
+
+                    <button type="submit" aria-label="Add to Cart" id="cart">Add to Cart</button>
+                </form>
+            </section>
+        </article>
+
+
+        <!--shoe 2-->
+        <article>
+            <div class="header-img">
+                <img class="article-img" src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8"
+                    alt="a pair of white adidas sneakers">
+                <div class="overlay"></div>
+                <p class="copyright">Photo by: Daniel Storek</p>
+            </div>
+
+            <header class="article-header">
+                <h2> Adidas </h2>
+            </header>
+            <section class="article-description">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, necessitatibus. Unde assumenda
+                    iste iure libero impedit recusandae officiis rerum sequi. Minima, tempore sed ratione adipisci error
+                    repellendus corrupti explicabo deserunt.
+                </p>
+            </section>
+            <section class="details">
+                <form>
+
+                    <div class="pricetag">
+                        <p id="currency-sign">$</p>
+                        <input class="price" type="number" name="price" aria-label="Price" value="30" readonly></input>
+                        <p id="currency">USD</p>
+                    </div>
+                    <div class="order-input">
+                        <div class="shoesize">
+                            <label for="shoesize">Size</label>
+                            <select aria-label="Size" name="shoesize" id="size-select">
+                                <option aria-label="null" value="0"></option>
+                                <option aria-label="Size 6" value="6">6</option>
+                                <option aria-label="Size 7" value="7">7</option>
+                                <option aria-label="Size 8" value="8">8</option>
+                                <option aria-label="Size 9" value="9">9</option>
+                                <option aria-label="Size 10" value="10">10</option>
+                                <option aria-label="Size 11" value="11">11</option>
+                            </select>
+                        </div>
+
+                        <div class="quantity">
+                            <label for="quantity">Quantity</label>
+                            <select aria-label="Quantity" name="quantity" id="quantity-select">
+                                <option aria-label="null" value="0"></option>
+                                <option aria-label="1" value="1">1</option>
+                                <option aria-label="2" value="2">2</option>
+                                <option aria-label="3" value="3">3</option>
+                                <option aria-label="4" value="4">4</option>
+                                <option aria-label="5" value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="color-picker">
+                        <label for="colors">Colors: </label>
+                        <div class="colors">
+                            <input type="radio" id="green-black" name="color" aria-label="green-black"
+                                value="color-green-black" />
+                            <input type="radio" id="blue-black" name="color" aria-label="blue-black"
+                                value="color-blue-black" />
+                            <input type="radio" id="rose-black" name="color" aria-label="rose-black"
+                                value="color-rose-black" />
+                        </div>
+                    </div>
+
+                    <button type="submit" aria-label="Add to Cart" id="cart">Add to Cart</button>
+                </form>
+            </section>
+        </article>
+
+
+        <!--shoe 3-->
+        <article>
+            <div class="header-img">
+                <img class="article-img" src="https://images.unsplash.com/photo-1539185441755-769473a23570"
+                    alt="a single olive green New Balance sneaker">
+                <div class="overlay"></div>
+                <p class="copyright">Photo by: felipepelaquim</p>
+                <p class="banner">Just One Left!</p>
+            </div>
+
+            <header class="article-header">
+                <h2> New Balance </h2>
+            </header>
+            <section class="article-description">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, necessitatibus. Unde assumenda
+                    iste iure libero impedit recusandae officiis rerum sequi. Minima, tempore sed ratione adipisci error
+                    repellendus corrupti explicabo deserunt.
+                </p>
+            </section>
+            <section class="details">
+                <form>
+                    <div class="pricetag">
+                        <p id="currency-sign">$</p>
+                        <input class="price" type="number" name="price" aria-label="Price" value="45" readonly></input>
+                        <p id="currency">USD</p>
+                    </div>
+
+                    <div class="order-input">
+                        <div class="shoesize">
+                            <label for="shoesize">Size</label>
+                            <select aria-label="Size" name="shoesize" id="size-select">
+                                <option aria-label="null" value="0"></option>
+                                <option aria-label="Size 6" value="6">6</option>
+                                <option aria-label="Size 7" value="7">7</option>
+                                <option aria-label="Size 8" value="8">8</option>
+                                <option aria-label="Size 9" value="9">9</option>
+                                <option aria-label="Size 10" value="10">10</option>
+                                <option aria-label="Size 11" value="11">11</option>
+                            </select>
+                        </div>
+
+                        <div class="quantity">
+                            <label for="quantity">Quantity</label>
+                            <select aria-label="Quantity" name="quantity" id="quantity-select">
+                                <option aria-label="null" value="0"></option>
+                                <option aria-label="1" value="1">1</option>
+                                <option aria-label="2" value="2">2</option>
+                                <option aria-label="3" value="3">3</option>
+                                <option aria-label="4" value="4">4</option>
+                                <option aria-label="5" value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="color-picker">
+                        <label for="farben">Colors: </label>
+                        <div class="farben">
+                            <input type="radio" id="red-white" name="color" aria-label="blue" value="color-red-white" />
+                            <input type="radio" id="black-white" name="color" aria-label="orange"
+                                value="color-black-white" />
+                        </div>
+                    </div>
+
+                    <button type="submit" aria-label="Add to Cart" id="cart">Add to Cart</button>
+                </form>
+            </section>
+        </article>
+    </main>
+</body>
+
+</html>

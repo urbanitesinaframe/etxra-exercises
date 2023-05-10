@@ -1,0 +1,3 @@
+This repo will contain the result from the kata shopping layout
+
+When I have time. I will try to replace the buttons with radio input selectors...
