@@ -115,33 +115,48 @@ header {
 /****** Title *******/
 
 /******** Search mask **********/
-.wrapper {
-  max-height: 50px;
+
+.search-field-container {
+  background-color: blueviolet;
+  position: relative;
 }
 
-#students-name {
+#search-field {
   font-size: 1.25rem;
   border: 0.125rem solid var(--clr-border);
   width: 100%;
   height: 2.5rem;
-  padding-block: 2rem;
+  padding-block: 2rem 1.25rem;
+  padding-inline: 0.5rem;
 }
 
-#students-name::after {
+#students-field::after {
   background-image: url(./images/search.svg);
-}
-
-.search-input {
-  _background-color: blueviolet;
-  position: relative;
 }
 
 .placeholder-text {
   position: absolute;
-  font-size: 1rem;
-  color: green;
-  top: 0;
-  margin: 0.25rem;
+  color: rgba(255, 255, 255, 0);
+  left: calc(0.5rem + 2px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#search-field:focus + .placeholder-text,
+#search-field:not(:placeholder-shown) + .placeholder-text {
+  top: 20%;
+  font-size: 0.8rem;
+  color: var(--clr-font-grey);
+}
+
+#search-icon {
+  position: absolute;
+  width: 30px;
+  right: 0;
+  margin: 0.8rem;
+}
+
+ {
 }
 
 /******** Search results ***********/
