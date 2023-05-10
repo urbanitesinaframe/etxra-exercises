@@ -23,25 +23,16 @@ html {
   background-color: var(--clr-light-gray);
 }
 
-body {
-  position: relative;
-}
-
-main {
-  position: relative;
-}
-
 .main-element {
   background-color: var(--clr-white);
   max-width: 30%;
   min-width: 324px;
   padding: 2rem;
   border-radius: 2rem;
-  position: absolute;
+  margin: 10vh auto;
   display: flex;
   flex-direction: column;
   flex-shrink: 1;
-  top: 50;
 }
 
 img {
