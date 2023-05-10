@@ -29,10 +29,12 @@ h3 {
 h1 {
   color: var(--clr-font-violet);
   font-size: 2rem;
+  margin: 0;
 }
 h2 {
   color: var(--clr-font-grey);
-  font-size: 1rem;
+  font-size: 1.25rem;
+  margin-top: 0;
 }
 h3 {
   color: white;
@@ -52,21 +54,25 @@ main {
 }
 
 section {
-  border: 2px solid blue;
+  _border: 2px solid blue;
 }
 
 div {
-  border: 2px dotted green;
+  _border: 2px dotted green;
 }
 
 article {
   border: 2px solid darkgoldenrod;
 }
 
+section + section {
+  margin: 2rem;
+}
+
 /*******Heading*********/
 
 header {
-  border: 2px solid red;
+  _border: 2px solid red;
 }
 
 #heading {
@@ -113,7 +119,36 @@ header {
   max-height: 50px;
 }
 
+#students-name {
+  font-size: 1.25rem;
+  border: 0.125rem solid var(--clr-border);
+  width: 100%;
+  height: 2.5rem;
+  padding-block: 2rem;
+}
+
+#students-name::after {
+  background-image: url(./images/search.svg);
+}
+
+.search-input {
+  _background-color: blueviolet;
+  position: relative;
+}
+
+.placeholder-text {
+  position: absolute;
+  font-size: 1rem;
+  color: green;
+  top: 0;
+  margin: 0.25rem;
+}
+
 /******** Search results ***********/
+
+article + article {
+  margin-top: 1.5rem;
+}
 
 .student-name {
   font-weight: 600;
