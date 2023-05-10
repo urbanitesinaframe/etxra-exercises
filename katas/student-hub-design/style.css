@@ -62,7 +62,7 @@ div {
 }
 
 article {
-  border: 2px solid darkgoldenrod;
+  _border: 2px solid darkgoldenrod;
 }
 
 section + section {
@@ -117,21 +117,18 @@ header {
 /******** Search mask **********/
 
 .search-field-container {
-  background-color: blueviolet;
+  _background-color: blueviolet;
   position: relative;
 }
 
 #search-field {
   font-size: 1.25rem;
   border: 0.125rem solid var(--clr-border);
+  border-radius: 0.25rem;
   width: 100%;
   height: 2.5rem;
   padding-block: 2rem 1.25rem;
   padding-inline: 0.5rem;
-}
-
-#students-field::after {
-  background-image: url(./images/search.svg);
 }
 
 .placeholder-text {
@@ -142,21 +139,49 @@ header {
   transform: translateY(-50%);
 }
 
-#search-field:focus + .placeholder-text,
+#search-field:focus + .placeholder-text {
+  color: (255, 255, 255, 0);
+}
 #search-field:not(:placeholder-shown) + .placeholder-text {
   top: 20%;
   font-size: 0.8rem;
   color: var(--clr-font-grey);
 }
+#submit {
+  position: absolute;
+  right: 0rem;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
 
 #search-icon {
-  position: absolute;
   width: 30px;
-  right: 0;
   margin: 0.8rem;
 }
 
- {
+#submit:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+#submit:active {
+  transform: scale(1.1);
+}
+
+.class-filter {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  height: 3.25rem;
+}
+
+.class {
+  border: 0.125rem solid var(--clr-border);
+  border-radius: 0.25rem;
+}
+
+#class-selector {
+  width: 55%;
 }
 
 /******** Search results ***********/
@@ -165,10 +190,32 @@ article + article {
   margin-top: 1.5rem;
 }
 
+.student-card-container {
+  position: relative;
+  border: 0.125rem solid var(--clr-border);
+}
+
+.student {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+  z-index: 2;
+  background-color: var(--clr-bg);
+}
+
 .student-name {
   font-weight: 600;
 }
 
 .student-icon {
   background-color: tan;
+  width: 30px;
+  height: 30px;
+}
+
+.student-card-container-bg {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1;
 }
