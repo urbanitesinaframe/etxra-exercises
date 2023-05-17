@@ -149,18 +149,24 @@ header {
 }
 #submit {
   position: absolute;
-  right: 0rem;
+  right: 1rem;
+  top: 25%;
+  _transform: translateY(-50%);
   border: none;
   background-color: rgba(255, 255, 255, 0);
 }
 
 #search-icon {
-  width: 30px;
-  margin: 0.8rem;
+  _border: 1px solid red;
+  margin-top: 2.5px;
+  _width: 30px;
+  _margin: 0.8rem;
 }
 
 #submit:hover {
   transform: scale(1.2);
+
+  transform-origin: center center;
   cursor: pointer;
 }
 
