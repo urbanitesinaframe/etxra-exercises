@@ -11,3 +11,7 @@ function addTodo(todo) {
     ? todos.push(todo)
     : "please enter a value";
 }
+
+function deleteTodo(todo) {
+  return todos.splice(todos.indexOf(todo), 1);
+}
