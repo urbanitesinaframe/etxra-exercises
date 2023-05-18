@@ -20,3 +20,30 @@ function addTodo(todo) {
     return todos.push({ description: todo, done: false });
   }
 }
+
+function doneTodo(todo) {
+  for (let i = 0; i < todos.length; i++) {
+    if (todo === todos[i].description) {
+      return (todos[i].done = true);
+    } else {
+      ("please enter correct todo name");
+    }
+  }
+}
+
+function showOpenTodos() {
+  for (let i = 0; i < todos.length; i++) {
+    if (todos[i].done === false) {
+      console.log("[ ] " + todos[i].description);
+    }
+  }
+}
+
+function deleteTodos() {
+  for (let i = 0; i < todos.length; i++) {
+    if (todos[i].done === true) {
+      todos.splice([i], 1);
+    }
+  }
+  console.log(listTodos());
+}
