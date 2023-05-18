@@ -5,3 +5,9 @@ function listTodos() {
     console.log(todos[i]);
   }
 }
+
+function addTodo(todo) {
+  return todo !== "" && todo !== undefined
+    ? todos.push(todo)
+    : "please enter a value";
+}
