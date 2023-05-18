@@ -12,3 +12,11 @@ function listTodos() {
     }
   }
 }
+
+function addTodo(todo) {
+  if (todo == "" && todo == undefined) {
+    return "please enter a todo";
+  } else {
+    return todos.push({ description: todo, done: false });
+  }
+}
