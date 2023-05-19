@@ -6,9 +6,9 @@ const todos = [
 function listTodos() {
   for (let i = 0; i < todos.length; i++) {
     if (todos[i].done === false) {
-      console.log("[ ] " + todos[i].description);
+      console.log("[ ] " + i + ": " + todos[i].description);
     } else {
-      console.log("[x] " + todos[i].description);
+      console.log("[x] " + i + ": " + todos[i].description);
     }
   }
 }
@@ -40,10 +40,10 @@ function showOpenTodos() {
 }
 
 function deleteTodos() {
-  for (let i = 0; i < todos.length; i++) {
+  for (let i = todos.length - 1; i > -1; i--) {
     if (todos[i].done === true) {
       todos.splice([i], 1);
     }
   }
-  console.log(listTodos());
+  listTodos();
 }
