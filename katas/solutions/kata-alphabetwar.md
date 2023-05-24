@@ -1,3 +1,10 @@
+<https://www.codewars.com/kata/59377c53e66267c8f6000027/javascript>
+
+Thoughts:
+I iterate through the string which is passed in and see if each character includes on of the left/right side character. 
+If yes its value should be passed to the value of either leftPowerCount or rightPowerCount
+In the end the powerCounts will be compared and its result defines the result as string
+
 function alphabetWar(fight){
     let leftPowerCount = 0;
     let rightPowerCount = 0;
