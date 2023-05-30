@@ -1,0 +1,6 @@
+<https://www.codewars.com/kata/5899dc03bc95b1bf1b0000ad/solutions/javascript>
+
+function invert(array) {
+  const newArray = array.map(number => -number)   
+  return newArray
+}
