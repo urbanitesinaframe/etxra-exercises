@@ -8,5 +8,5 @@ list.sort((a, b) => a - b)
 var max = function(list){
   list.sort((a, b) => a - b)
     
-    return list[list.length-1];
+   return list[list.length-1];
 }
