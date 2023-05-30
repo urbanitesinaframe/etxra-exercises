@@ -1,0 +1,6 @@
+<https://www.codewars.com/kata/5dd462a573ee6d0014ce715b/train/javascript>
+
+1.  function sameCase(a, b){
+2.  return (a.match(/[a-z]/) && b.match(/[a-z]/)) || (a.match(/[A-Z]/) && b.match(/[A-Z]/)) ? 1 :
+3.  (a.match(/[a-zA-Z]/) && b.match(/[a-zA-Z]/)) ? 0 : -1
+4.  }
