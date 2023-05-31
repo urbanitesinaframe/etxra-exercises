@@ -1,5 +1,5 @@
 class SumApp {
-  // Hier wird ein constructor für das neue objekt erstellt
+  // Hier wird ein constructor für das neue objekt erstellt.
   constructor() {
     //es enthält zunächst ein Element mit dem key numbers und als value ein leeres Array
     this.numbers = [];
