@@ -4,4 +4,8 @@ const good = document.getElementById("good");
 
 fast.addEventListener("click", function () {
   fast.checked.toggle = true;
+  fast.classList.remove("lastClicked");
+  if (document.querySelectorAll("input:checked").length === 2) {
+    fast.classList.add("lastClicked");
+  }
 });
