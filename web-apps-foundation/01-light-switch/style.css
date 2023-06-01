@@ -1,4 +1,6 @@
 :root {
+  --backgroundColor-light: snow;
+  --backgroundColor-dark: #333;
 }
 
 html,
@@ -18,7 +20,23 @@ body {
   align-items: center;
 }
 
-.button {
+.body {
+  transition: 1s ease-in-out background-color;
+  background-color: var(--backgroundColor-light);
+}
+
+.btn-dark-mode {
+  background-color: var(--backgroundColor-dark);
+  border: 5px solid var(--backgroundColor-light);
+  color: var(--backgroundColor-light);
+  box-shadow: 0 0 5px yellow, 0 0 10px yellow, 0 0 20px yellow;
+}
+
+.dark-mode {
+  background-color: var(--backgroundColor-dark);
+}
+
+button {
   font-size: 2rem;
   cursor: pointer;
   font-family: monospace;
