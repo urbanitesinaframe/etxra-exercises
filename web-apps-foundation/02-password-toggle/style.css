@@ -11,3 +11,20 @@ body {
 .inputfield {
   height: 100%;
 }
+
+html {
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: 2rem;
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.password-field {
+  margin-right: 1rem;
+}
