@@ -5,7 +5,7 @@ this folder contains my solution to the tastk fast cheap and good
 
 Implement a web app that will implement a tricky toggle behavior of three checkboxes like this [example](https://coding-katas.netlify.app/fast-cheap-good/).
 
-## Requirments
+## Requirements
 
 - [ ] Add three checkboxes with labels (fast, cheap and good)
 - [ ] Implement the feature that not all checkboxes can be checked at the same time
