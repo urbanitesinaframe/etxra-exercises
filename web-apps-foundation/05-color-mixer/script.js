@@ -16,7 +16,7 @@ function changeBackgroundColor() {
   root.style.setProperty("--newColor", color);
   document.querySelector("#hexcode").innerText = color;
 }
-// wichtig, damit der farbwert angegeben wird
+// wichtig, damit der farbwert beim laden des scripts schon angegeben wird
 changeBackgroundColor();
 
 document.body.addEventListener("input", changeBackgroundColor);
