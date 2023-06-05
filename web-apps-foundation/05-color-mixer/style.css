@@ -1,0 +1,19 @@
+:root {
+  --newColor: salmon;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  background-color: var(--newColor);
+}
+
+header {
+  background-color: rgba(255, 255, 255, 0.765);
+}

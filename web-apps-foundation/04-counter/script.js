@@ -33,7 +33,7 @@ const root = document.querySelector(":root");
 let main = document.querySelector("main");
 main.addEventListener("click", increaseCounter);
 
-document.addEventListener("keypress", function (e) {
+document.addEventListener("keyup", function (e) {
   console.log(e.key);
   if (["Enter", " "].includes(e.key)) {
     increaseCounter();
