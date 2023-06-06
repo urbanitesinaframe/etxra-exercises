@@ -7,11 +7,11 @@ const blueSlider = document.querySelector("#blueSlider");
 const root = document.querySelector(":root");
 
 function changeBackgroundColor() {
-  const red = redSlider.value;
-  const green = greenSlider.value;
-  const blue = blueSlider.value;
+  const red = parseInt(redSlider.value).toString(16);
+  const green = parseInt(greenSlider.value).toString(16);
+  const blue = parseInt(blueSlider.value).toString(16);
 
-  const color = "rgb" + "(" + red + "," + green + "," + blue + ")";
+  const color = "#" + red + green + blue;
 
   root.style.setProperty("--newColor", color);
   document.querySelector("#hexcode").innerText = color;
