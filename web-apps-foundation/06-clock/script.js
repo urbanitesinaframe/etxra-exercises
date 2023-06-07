@@ -17,9 +17,11 @@ function logTime() {
   console.log(hours);
   console.log(minutes);
   console.log(seconds);
-  hoursPointer.style.transform = "rotate(" + hours * 30 + "deg)";
-  minutesPointer.style.transform = "rotate(" + minutes * 6 + "deg)";
-  secondsPointer.style.transform = "rotate(" + seconds * 6 + "deg)";
+
+  let root = document.querySelector(":root");
+  root.style.setProperty("--hour", hours * 30 + "deg");
+  root.style.setProperty("--minutes", minutes * 6 + "deg");
+  root.style.setProperty("--seconds", seconds * 6 + "deg");
 }
 
 function zero(value) {
