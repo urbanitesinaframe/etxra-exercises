@@ -1,0 +1,12 @@
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-family: monospace;
+}
+
+body {
+  height: 100%;
+}
+.strikeThrough {
+  text-decoration: line-through;
+}
