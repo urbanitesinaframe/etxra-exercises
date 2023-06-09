@@ -16,3 +16,14 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+#delBtn {
+  margin: 1rem;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}

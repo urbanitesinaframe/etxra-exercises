@@ -11,17 +11,19 @@ function addTitle() {
 
 //Fuegt Eingabefeld hinzu
 function addInputField() {
-  const inputcontainer = document.createElement("div");
+  const inputContainer = document.createElement("div");
+  inputContainer.className = "inputContainer";
+  main.appendChild(inputContainer);
   const inputField = document.createElement("input");
   inputField.type = "text";
   inputField.id = "toDo_test";
   inputField.name = "description";
   inputField.placeholder = "What'cha gonna do?";
-  main.appendChild(inputField);
+  inputContainer.appendChild(inputField);
   const submitButton = document.createElement("button");
   submitButton.id = "add-new-toDo";
   submitButton.innerText = "Let's plan!";
-  main.appendChild(submitButton);
+  inputContainer.appendChild(submitButton);
 }
 
 //Fuegt alle erledigte "Aufgaben-loeschen"-Feld hinzu
