@@ -154,4 +154,10 @@ function addNewToDo() {
 }
 
 const submitBtn = document.querySelector("#addNewToDo");
-submitBtn.addEventListener("click", addNewToDo); //hier muss eine function zum hinzufuegen des neues objektes in die objektliste rein
+submitBtn.addEventListener("click", addNewToDo);
+toDoInput.addEventListener("keyup", function (e) {
+  console.log(e.key);
+  if (["Enter"].includes(e.key)) {
+    addNewToDo();
+  }
+});
