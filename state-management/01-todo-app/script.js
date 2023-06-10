@@ -27,6 +27,27 @@ function addUIContainer() {
   createUIcontainer.id = "uiContainer";
   main.appendChild(createUIcontainer);
 }
+//Fügt Filterbuttons in den UI Container
+function addFilter() {
+  const createFilterContainer = document.createElement("div");
+  createFilterContainer.id = "filterContainer";
+
+  for (let filterOptionData of state.filter) {
+    const newFilterOption = document.createElement("label");
+    newFilterOption.for = filterOptionData.id;
+    newFilterOption.innerText = filterOptionData.id;
+    const newFilterStatus = document.createElement("input");
+    newFilterStatus.type = "radio";
+    newFilterStatus.name = "filter";
+    newFilterStatus.id = filterOptionData.id;
+    if (filterOptionData.checked === "true") {
+      newFilterStatus.checked = true;
+    }
+    createFilterContainer.appendChild(newFilterOption);
+    createFilterContainer.appendChild(newFilterStatus);
+  }
+  uiContainer.appendChild(createFilterContainer);
+}
 
 //Fuegt Eingabefeld hinzu
 function addInputField() {
@@ -60,20 +81,19 @@ function addToDoListContainer() {
 }
 
 // state for status and todos
-
 const state = {
   filter: [
     {
-      id: "all",
-      checked: true,
+      id: "All",
+      checked: "true",
     },
     {
-      id: "open",
-      checked: false,
+      id: "Open",
+      checked: "false",
     },
     {
-      id: "done",
-      checked: false,
+      id: "Done",
+      checked: "false",
     },
   ],
   todo: [],
@@ -131,6 +151,7 @@ addHeader();
 addMain();
 addTitle();
 addUIContainer();
+addFilter();
 deleteDone();
 addInputField();
 addToDoListContainer();
