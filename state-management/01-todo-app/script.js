@@ -40,9 +40,7 @@ function addFilter() {
     newFilterStatus.type = "radio";
     newFilterStatus.name = "filter";
     newFilterStatus.id = filterOptionData.id;
-    if (filterOptionData.checked === "true") {
-      newFilterStatus.checked = true;
-    }
+    newFilterStatus.checked = filterOptionData.checked;
     createFilterContainer.appendChild(newFilterOption);
     createFilterContainer.appendChild(newFilterStatus);
   }
@@ -85,15 +83,15 @@ const state = {
   filter: [
     {
       id: "All",
-      checked: "true",
+      checked: true,
     },
     {
       id: "Open",
-      checked: "false",
+      checked: false,
     },
     {
       id: "Done",
-      checked: "false",
+      checked: false,
     },
   ],
   todo: [],
@@ -130,18 +128,19 @@ function render() {
     createToDoList.id = "toDoList";
 
     for (let toDoListEntry of state.todo) {
-      const newToDoListElement = document.createElement("section");
       const newToDoListEntry = document.createElement("li");
-      newToDoListEntry.id = toDoListEntry.id;
-      newToDoListEntry.innerText = toDoListEntry.description;
-      newToDoListElement.appendChild(newToDoListEntry);
       const toDoCheckbox = document.createElement("input");
       toDoCheckbox.type = "checkbox";
-      toDoCheckbox.name = "toDoDone";
-      toDoCheckbox.id = "toDoDoneCheckbox";
-      toDoCheckbox.check = toDoListEntry.done;
-      newToDoListElement.appendChild(toDoCheckbox);
-      createToDoList.appendChild(newToDoListElement);
+      toDoCheckbox.name = "toDoStatus";
+      toDoCheckbox.id = toDoListEntry.id;
+      toDoCheckbox.checked = toDoListEntry.done;
+      const newToDoListElLabel = document.createElement("label");
+      newToDoListElLabel.setAttribute("for", toDoListEntry.id);
+      newToDoListElLabel.innerText = toDoListEntry.description;
+
+      newToDoListEntry.appendChild(newToDoListElLabel);
+      newToDoListEntry.appendChild(toDoCheckbox);
+      createToDoList.appendChild(newToDoListEntry);
     }
     toDoListContainer.appendChild(createToDoList);
   }
