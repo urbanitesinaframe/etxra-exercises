@@ -7,6 +7,12 @@ function addHeader() {
     .querySelector("body")
     .insertBefore(newHeaderEl, document.querySelector("script"));
 }
+//Fuegt Titel hinzu
+function addTitle() {
+  const newTitle = document.createElement("h1");
+  newTitle.textContent = "ToDo App";
+  document.querySelector("header").appendChild(newTitle);
+}
 // Fuegt main in den body
 function addMain() {
   const newMainEl = document.createElement("main");
@@ -15,12 +21,13 @@ function addMain() {
     .querySelector("body")
     .insertBefore(newMainEl, document.querySelector("script"));
 }
-//Fuegt Titel hinzu
-function addTitle() {
-  const newTitle = document.createElement("h1");
-  newTitle.textContent = "ToDo App";
-  document.querySelector("header").appendChild(newTitle);
+// Fuegt UI-container in den body
+function addUIContainer() {
+  const createUIcontainer = document.createElement("div");
+  createUIcontainer.id = "uiContainer";
+  main.appendChild(createUIcontainer);
 }
+
 //Fuegt Eingabefeld hinzu
 function addInputField() {
   const inputContainer = document.createElement("div");
@@ -34,7 +41,7 @@ function addInputField() {
   const submitButton = document.createElement("button");
   submitButton.id = "addNewToDo";
   submitButton.innerText = "Let's plan!";
-  main.appendChild(inputContainer);
+  uiContainer.appendChild(inputContainer);
   inputContainer.appendChild(submitButton);
 }
 //Fuegt alle erledigte "Aufgaben-loeschen"-Feld hinzu
@@ -42,7 +49,7 @@ function deleteDone() {
   const delBtn = document.createElement("button");
   delBtn.innerText = "You're great! Now let's remove the done ToDos :)";
   delBtn.id = "delBtn";
-  main.appendChild(delBtn);
+  uiContainer.appendChild(delBtn);
 }
 
 // Fuegt ToListContainer hinzu
@@ -123,7 +130,7 @@ function render() {
 addHeader();
 addMain();
 addTitle();
-
+addUIContainer();
 deleteDone();
 addInputField();
 addToDoListContainer();
