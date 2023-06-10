@@ -27,3 +27,8 @@ main {
   align-items: center;
   margin: 1rem;
 }
+
+section {
+  display: flex;
+  justify-content: space-between;
+}
