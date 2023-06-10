@@ -74,20 +74,7 @@ const state = {
 
 //später if done = true, checkbox checken und den Eintrag durchstreichen, Filter funktioniert auf den key: done false || true
 
-/*muss eine ID setzen, am besten unique z.b. mit date 
-ddttyyhhmmss
-
-const now = new Date();
-let id=""
-let year = now.getYear;
-let month = now.getMonth;
-let date = now.getDate;
-let hours = now.getHours();
-  let minutes = now.getMinutes();
-  let seconds = now.getSeconds();
-  return id= year+month+date+hours+minutes+seconds
-  >> +new Date()
-
+/*
 let toDo = [{ toDo: "", checked: false }];
 
 const checkbox = document.querySelector("#checkbox");
