@@ -72,12 +72,11 @@ function addDeleteDoneButton() {
   uiContainer.appendChild(delBtn);
   delBtn.addEventListener("click", deleteDone);
 }
-
+//fuegt loeschfunktion hinzu
 function deleteDone() {
-  for (let toDoListDate of state.todo) {
-    if (toDoListDate.done === true) {
-      let index = state.todo.indexOf(toDoListDate);
-      state.todo.splice(index, 1);
+  for (let i = state.todo.length - 1; i >= 0; i--) {
+    if (state.todo[i].done === true) {
+      state.todo.splice(i, 1);
     }
   }
   saveToMemory();
