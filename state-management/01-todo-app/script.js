@@ -1,3 +1,5 @@
+"use strict";
+
 let id = +new Date(); //to create id for ToDo Object List Elements
 
 //Fuegt Header in den Body
@@ -97,28 +99,6 @@ const state = {
   todo: [],
 };
 
-//später if done = true, checkbox checken und den Eintrag durchstreichen, Filter funktioniert auf den key: done false || true
-
-/*
-let toDo = [{ toDo: "", checked: false }];
-
-const checkbox = document.querySelector("#checkbox");
-const label = document.querySelector("label");
-
-function checkStatus() {
-  return checkbox.checked
-    ? label.classList.add("strikeThrough")
-    : label.classList.remove("strikeThrough");
-}
-
-checkbox.addEventListener("change", checkStatus);
-
-/*for (let toDoData of state.todo) {
-  const newToDoListElement = document.createElement("label");
-  newToDoListElement.type;
-}
-*/
-
 //create ToDo list elements in html//
 function render() {
   if (state.todo.length === 0) {
@@ -130,19 +110,39 @@ function render() {
     for (let toDoListEntry of state.todo) {
       const newToDoListEntry = document.createElement("li");
       const toDoCheckbox = document.createElement("input");
-      toDoCheckbox.type = "checkbox";
-      toDoCheckbox.name = "toDoStatus";
-      toDoCheckbox.id = toDoListEntry.id;
-      toDoCheckbox.checked = toDoListEntry.done;
       const newToDoListElLabel = document.createElement("label");
       newToDoListElLabel.setAttribute("for", toDoListEntry.id);
+      newToDoListElLabel.classList.add(toDoListEntry.strikeThrough);
       newToDoListElLabel.innerText = toDoListEntry.description;
 
+      toDoCheckbox.id = toDoListEntry.id;
+      toDoCheckbox.type = "checkbox";
+      toDoCheckbox.name = "toDoStatus";
+      toDoCheckbox.checked = toDoListEntry.done;
+
       newToDoListEntry.appendChild(newToDoListElLabel);
-      newToDoListEntry.appendChild(toDoCheckbox);
+      newToDoListElLabel.appendChild(toDoCheckbox);
       createToDoList.appendChild(newToDoListEntry);
     }
     toDoListContainer.appendChild(createToDoList);
+    for (let toDoListEntry of state.todo) {
+      document
+        .getElementById(toDoListEntry.id)
+        .addEventListener("change", function () {
+          console.log(toDoListEntry.id);
+        });
+    }
+  }
+}
+
+//Fügt Eventhandler für checkboxen hinzu
+function addToDoStatusHandler() {
+  for (let toDoListEntry of state.todo) {
+    const newCheckboxHandler = document.getElementById(toDoListEntry.id);
+    newCheckboxHandler.addEventListener(
+      "change",
+      newCheckboxHandler.parentNode.classList.toggle("strikeThrough")
+    );
   }
 }
 
@@ -155,6 +155,7 @@ deleteDone();
 addInputField();
 addToDoListContainer();
 render();
+addToDoStatusHandler();
 
 function addNewToDo() {
   state.todo.push({
@@ -167,6 +168,9 @@ function addNewToDo() {
   render();
 }
 
+let obj = state.todo.find((o) => o.done === "false");
+console.log(obj);
+
 const submitBtn = document.querySelector("#addNewToDo");
 submitBtn.addEventListener("click", addNewToDo);
 toDoInput.addEventListener("keyup", function (e) {
@@ -175,3 +179,25 @@ toDoInput.addEventListener("keyup", function (e) {
     addNewToDo();
   }
 });
+
+//später if done = true, checkbox checken und den Eintrag durchstreichen, Filter funktioniert auf den key: done false || true
+
+let toDo = [{ toDo: "", checked: false }];
+
+let checkbox = document.querySelector("input[type=checkbox]");
+
+function changestatus() {
+  console.log(document.querySelector("input[type=checkbox]").id);
+}
+
+/*return checkbox.checked
+  ? label.classList.add("strikeThrough")
+  : label.classList.remove("strikeThrough");*/
+
+//wenn checkbox gecheckt wird, dann soll checkbox.id
+
+/*for (let toDoData of state.todo) {
+  const newToDoListElement = document.createElement("label");
+  newToDoListElement.type;
+}
+*/
