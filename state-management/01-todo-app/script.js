@@ -112,7 +112,10 @@ function render() {
       const toDoCheckbox = document.createElement("input");
       const newToDoListElLabel = document.createElement("label");
       newToDoListElLabel.setAttribute("for", toDoListEntry.id);
-      newToDoListElLabel.classList.add(toDoListEntry.strikeThrough);
+      if (toDoListEntry.done === true) {
+        newToDoListElLabel.setAttribute("class", "strikeThrough");
+      }
+
       newToDoListElLabel.innerText = toDoListEntry.description;
 
       toDoCheckbox.id = toDoListEntry.id;
@@ -125,13 +128,30 @@ function render() {
       createToDoList.appendChild(newToDoListEntry);
     }
     toDoListContainer.appendChild(createToDoList);
+    // fügt EventListener zu Checkboxen hinzu und fuehrt function aus
     for (let toDoListEntry of state.todo) {
       document
         .getElementById(toDoListEntry.id)
-        .addEventListener("change", function () {
-          console.log(toDoListEntry.id);
-        });
+        .addEventListener("change", addClassToParentNode);
     }
+  }
+}
+
+function addClassToParentNode(event) {
+  let thislabel = document.getElementById(event.target.id).parentNode.classList;
+  console.log(event.target.id);
+  if (thislabel.contains("strikeThrough")) {
+    //find the index of object containing the id matches eventtarget id
+    const index = state.todo.findIndex((item) => item.id == event.target.id);
+    console.log(index);
+    thislabel.remove("strikeThrough");
+    //
+    state.todo[index].done = false;
+  } else {
+    const index = state.todo.findIndex((item) => item.id == event.target.id);
+    console.log(index);
+    thislabel.add("strikeThrough");
+    state.todo[index].done = true;
   }
 }
 
@@ -157,19 +177,22 @@ addToDoListContainer();
 render();
 addToDoStatusHandler();
 
-function addNewToDo() {
-  state.todo.push({
-    id: +new Date(),
-    description: toDoInput.value,
-    done: false,
-  });
-  toDoListContainer.innerHTML = "";
-  toDoInput.value = "";
-  render();
-}
+//fuegt neue Todo hinzu
 
-let obj = state.todo.find((o) => o.done === "false");
-console.log(obj);
+function addNewToDo() {
+  if (toDoInput.value.length < 3) {
+    alert("Please add a task with more than 2 Letters!");
+  } else {
+    state.todo.push({
+      id: +new Date(),
+      description: toDoInput.value,
+      done: false,
+    });
+    toDoListContainer.innerHTML = "";
+    toDoInput.value = "";
+    render();
+  }
+}
 
 const submitBtn = document.querySelector("#addNewToDo");
 submitBtn.addEventListener("click", addNewToDo);
@@ -179,25 +202,3 @@ toDoInput.addEventListener("keyup", function (e) {
     addNewToDo();
   }
 });
-
-//später if done = true, checkbox checken und den Eintrag durchstreichen, Filter funktioniert auf den key: done false || true
-
-let toDo = [{ toDo: "", checked: false }];
-
-let checkbox = document.querySelector("input[type=checkbox]");
-
-function changestatus() {
-  console.log(document.querySelector("input[type=checkbox]").id);
-}
-
-/*return checkbox.checked
-  ? label.classList.add("strikeThrough")
-  : label.classList.remove("strikeThrough");*/
-
-//wenn checkbox gecheckt wird, dann soll checkbox.id
-
-/*for (let toDoData of state.todo) {
-  const newToDoListElement = document.createElement("label");
-  newToDoListElement.type;
-}
-*/
