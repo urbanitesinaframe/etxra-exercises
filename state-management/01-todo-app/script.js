@@ -48,7 +48,6 @@ function addFilter() {
   }
   uiContainer.appendChild(createFilterContainer);
 }
-
 //Fuegt Eingabefeld hinzu
 function addInputField() {
   const inputContainer = document.createElement("div");
@@ -66,11 +65,24 @@ function addInputField() {
   inputContainer.appendChild(submitButton);
 }
 //Fuegt alle erledigte "Aufgaben-loeschen"-Feld hinzu
-function deleteDone() {
+function addDeleteDoneButton() {
   const delBtn = document.createElement("button");
   delBtn.innerText = "You're great! Now let's remove the done ToDos :)";
   delBtn.id = "delBtn";
   uiContainer.appendChild(delBtn);
+  delBtn.addEventListener("click", deleteDone);
+}
+
+function deleteDone() {
+  for (let toDoListDate of state.todo) {
+    if (toDoListDate.done === true) {
+      let index = state.todo.indexOf(toDoListDate);
+      state.todo.splice(index, 1);
+    }
+  }
+  saveToMemory();
+  document.getElementById("toDoListContainer").innerHTML = "";
+  render();
 }
 
 // Fuegt ToListContainer hinzu
@@ -182,7 +194,7 @@ addMain();
 addTitle();
 addUIContainer();
 addFilter();
-deleteDone();
+addDeleteDoneButton();
 addInputField();
 addToDoListContainer();
 addToDoStatusHandler();
@@ -219,12 +231,4 @@ toDoInput.addEventListener("keyup", function (e) {
 function saveToMemory() {
   const jsonOfState = JSON.stringify(state);
   localStorage.setItem("ToDoList", jsonOfState);
-}
-
-function retrieveDataFromMemory() {
-  if (localStorage.ToDoList !== null) {
-    state = JSON.parse(localStorage.ToDoList);
-  } else {
-    console.warn("No name found!");
-  }
 }
