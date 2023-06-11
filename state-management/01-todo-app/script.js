@@ -81,7 +81,7 @@ function addToDoListContainer() {
 }
 
 // state for status and todos
-const state = {
+let state = {
   filter: [
     {
       id: "All",
@@ -98,6 +98,16 @@ const state = {
   ],
   todo: [],
 };
+
+//lade aus der memory
+function loadStatefromlocalStorage() {
+  if (localStorage.ToDoList !== undefined) {
+    let loadedState = JSON.parse(localStorage.ToDoList);
+    state = loadedState;
+  } else {
+    console.warn("No name found!");
+  }
+}
 
 //create ToDo list elements in html//
 function render() {
@@ -135,6 +145,7 @@ function render() {
         .addEventListener("change", addClassToParentNode);
     }
   }
+  saveToMemory();
 }
 
 function addClassToParentNode(event) {
@@ -145,7 +156,6 @@ function addClassToParentNode(event) {
     const index = state.todo.findIndex((item) => item.id == event.target.id);
     console.log(index);
     thislabel.remove("strikeThrough");
-    //
     state.todo[index].done = false;
   } else {
     const index = state.todo.findIndex((item) => item.id == event.target.id);
@@ -153,6 +163,7 @@ function addClassToParentNode(event) {
     thislabel.add("strikeThrough");
     state.todo[index].done = true;
   }
+  saveToMemory();
 }
 
 //Fügt Eventhandler für checkboxen hinzu
@@ -174,8 +185,9 @@ addFilter();
 deleteDone();
 addInputField();
 addToDoListContainer();
-render();
 addToDoStatusHandler();
+loadStatefromlocalStorage();
+render();
 
 //fuegt neue Todo hinzu
 
@@ -194,6 +206,7 @@ function addNewToDo() {
   }
 }
 
+// adds function to add todo with enter while input is on focus
 const submitBtn = document.querySelector("#addNewToDo");
 submitBtn.addEventListener("click", addNewToDo);
 toDoInput.addEventListener("keyup", function (e) {
@@ -202,3 +215,16 @@ toDoInput.addEventListener("keyup", function (e) {
     addNewToDo();
   }
 });
+
+function saveToMemory() {
+  const jsonOfState = JSON.stringify(state);
+  localStorage.setItem("ToDoList", jsonOfState);
+}
+
+function retrieveDataFromMemory() {
+  if (localStorage.ToDoList !== null) {
+    state = JSON.parse(localStorage.ToDoList);
+  } else {
+    console.warn("No name found!");
+  }
+}
