@@ -1,48 +1,66 @@
 "use strict";
-//blablabla
+
+//Hilfsfunktionen
+function createHtmlEl(TagName) {
+  return document.createElement(TagName);
+}
+
+function selectByName(item) {
+  return document.querySelector(item);
+}
+
+function selectByID(ID) {
+  return document.getElementById(ID);
+}
+
+function addElement(tagName, options = {}) {
+  const newElement = createHtmlEl(tagName);
+
+  for (let option in options) {
+    newElement[option] = options[option];
+  }
+  return newElement;
+}
 
 let id = +new Date(); //to create id for ToDo Object List Elements
 
 //Fuegt Header in den Body
 function addHeader() {
-  const newHeaderEl = document.createElement("header");
-  document
-    .querySelector("body")
-    .insertBefore(newHeaderEl, document.querySelector("script"));
+  const newHeaderEl = createHtmlEl("header");
+  selectByName("body").insertBefore(newHeaderEl, selectByName("script"));
 }
 //Fuegt Titel hinzu
 function addTitle() {
-  const newTitle = document.createElement("h1");
+  const newTitle = createHtmlEl("h1");
   newTitle.textContent = "ToDo App";
-  document.querySelector("header").appendChild(newTitle);
+  selectByName("header").appendChild(newTitle);
 }
 // Fuegt main in den body
 function addMain() {
-  const newMainEl = document.createElement("main");
+  const newMainEl = createHtmlEl("main");
   newMainEl.id = "main";
-  document
-    .querySelector("body")
-    .insertBefore(newMainEl, document.querySelector("script"));
+  selectByName("body").insertBefore(newMainEl, selectByName("script"));
 }
 // Fuegt UI-container in den body
 function addUIContainer() {
-  const createUIcontainer = document.createElement("div");
-  createUIcontainer.id = "uiContainer";
+  const createUIcontainer = addElement("div", {
+    id: "uiContainer",
+  });
   main.appendChild(createUIcontainer);
 }
 //Fügt Filterbuttons in den UI Container
 function addFilter() {
-  const createFilterContainer = document.createElement("div");
+  const createFilterContainer = createHtmlEl("div");
   createFilterContainer.id = "filterContainer";
-  const createFilterText = document.createElement("p");
+  const createFilterText = createHtmlEl("p");
   createFilterText.innerText = "Show: ";
   createFilterContainer.appendChild(createFilterText);
 
   for (let filterOptionData of state.filter) {
-    const newFilterOption = document.createElement("label");
+    const newFilterOption = createHtmlEl("label");
     newFilterOption.for = filterOptionData.id;
     newFilterOption.innerText = filterOptionData.id;
-    const newFilterStatus = document.createElement("input");
+    const newFilterStatus = createHtmlEl("input");
     newFilterStatus.type = "radio";
     newFilterStatus.name = "filter";
     newFilterStatus.id = filterOptionData.id;
@@ -51,28 +69,47 @@ function addFilter() {
     createFilterContainer.appendChild(newFilterStatus);
   }
   uiContainer.appendChild(createFilterContainer);
+  //add event listener for filter function
+  selectByName("#filterContainer").addEventListener("change", filterToDoList);
 }
 //Fuegt Eingabefeld hinzu
 function addInputField() {
-  const inputContainer = document.createElement("div");
-  inputContainer.className = "inputContainer";
-  const inputField = document.createElement("input");
-  inputField.type = "text";
-  inputField.id = "toDoInput";
-  inputField.name = "description";
-  inputField.placeholder = "What'cha gonna do?";
+  const inputContainer = addElement("div", {
+    className: "inputContainer",
+  });
+
+  const inputField = addElement("input", {
+    type: "text",
+    id: "toDoInput",
+    name: "description",
+    placeholder: "What'cha gonna do?",
+  });
+
   inputContainer.appendChild(inputField);
-  const submitButton = document.createElement("button");
-  submitButton.id = "addNewToDo";
-  submitButton.innerText = "Let's plan!";
+  const submitButton = addElement("button", {
+    id: "addNewToDo",
+    innerText: "Let's plan!",
+  });
   uiContainer.appendChild(inputContainer);
   inputContainer.appendChild(submitButton);
+
+  // adds function to add todo with enter while input is on focus
+  const submitBtn = selectByName("#addNewToDo");
+  submitBtn.addEventListener("click", addNewToDo);
+  toDoInput.addEventListener("keyup", function (e) {
+    console.log(e.key);
+    if (["Enter"].includes(e.key)) {
+      addNewToDo();
+    }
+  });
 }
 //Fuegt alle erledigte "Aufgaben-loeschen"-Feld hinzu
 function addDeleteDoneButton() {
-  const delBtn = document.createElement("button");
-  delBtn.innerText = `Awesome! Delete the "Done"-ToDos, now :)`;
-  delBtn.id = "delBtn";
+  const delBtn = addElement("button", {
+    innerText: `Awesome! Delete the "Done"-ToDos, now :)`,
+    id: "delBtn",
+  });
+
   main.appendChild(delBtn);
   delBtn.addEventListener("click", deleteDone);
 }
@@ -84,16 +121,16 @@ function deleteDone() {
     }
   }
   saveToMemory();
-  document.getElementById("toDoListContainer").innerHTML = "";
+  selectByID("toDoListContainer").innerHTML = "";
   render();
-  document.getElementById("All").checked = true;
+  selectByID("All").checked = true;
 }
 
 // Fuegt ToListContainer hinzu
 function addToDoListContainer() {
-  const createNewArticleEl = document.createElement("article");
-  main.appendChild(createNewArticleEl);
+  const createNewArticleEl = createHtmlEl("article");
   createNewArticleEl.id = "toDoListContainer";
+  main.appendChild(createNewArticleEl);
 }
 
 // state for status and todos
@@ -130,26 +167,29 @@ function render() {
   if (state.todo.length === 0) {
     toDoListContainer.innerHTML = "Type in your 1st ToDo to create a list";
   } else {
-    const createToDoList = document.createElement("ul");
+    const createToDoList = createHtmlEl("ul");
     createToDoList.id = "toDoList";
 
     for (let toDoListEntry of state.todo) {
-      const newToDoListEntry = document.createElement("li");
-      newToDoListEntry.id = toDoListEntry.id + "_liEL";
-      const toDoCheckbox = document.createElement("input");
-      const newToDoListElLabel = document.createElement("label");
-      newToDoListElLabel.setAttribute("for", toDoListEntry.id);
-      newToDoListElLabel.id = toDoListEntry.id + "_labelEl";
+      const newToDoListEntry = addElement("li", {
+        id: toDoListEntry.id + "_liEL",
+      });
+
+      const toDoCheckbox = addElement("input", {
+        id: toDoListEntry.id,
+        type: "checkbox",
+        name: "toDoStatus",
+        checked: toDoListEntry.done,
+      });
+
+      const newToDoListElLabel = addElement("label", {
+        for: toDoListEntry.id,
+        id: toDoListEntry.id + "_labelEl",
+        innerText: toDoListEntry.description,
+      });
       if (toDoListEntry.done === true) {
         newToDoListElLabel.setAttribute("class", "strikeThrough");
       }
-
-      newToDoListElLabel.innerText = toDoListEntry.description;
-
-      toDoCheckbox.id = toDoListEntry.id;
-      toDoCheckbox.type = "checkbox";
-      toDoCheckbox.name = "toDoStatus";
-      toDoCheckbox.checked = toDoListEntry.done;
 
       newToDoListEntry.appendChild(newToDoListElLabel);
       newToDoListElLabel.appendChild(toDoCheckbox);
@@ -158,16 +198,17 @@ function render() {
     toDoListContainer.appendChild(createToDoList);
     // fügt EventListener zu Checkboxen hinzu und fuehrt function aus
     for (let toDoListEntry of state.todo) {
-      document
-        .getElementById(toDoListEntry.id)
-        .addEventListener("change", addClassToParentNode);
+      selectByID(toDoListEntry.id).addEventListener(
+        "change",
+        addClassToParentNode
+      );
     }
   }
   saveToMemory();
 }
 
 function addClassToParentNode(event) {
-  let thislabel = document.getElementById(event.target.id).parentNode.classList;
+  let thislabel = selectByID(event.target.id).parentNode.classList;
   console.log(event.target.id);
   if (thislabel.contains("strikeThrough")) {
     //find the index of object containing the id matches eventtarget id
@@ -187,7 +228,7 @@ function addClassToParentNode(event) {
 //Fügt Eventhandler für checkboxen hinzu
 function addToDoStatusHandler() {
   for (let toDoListEntry of state.todo) {
-    const newCheckboxHandler = document.getElementById(toDoListEntry.id);
+    const newCheckboxHandler = selectByID(toDoListEntry.id);
     newCheckboxHandler.addEventListener(
       "change",
       newCheckboxHandler.parentNode.classList.toggle("strikeThrough")
@@ -195,18 +236,39 @@ function addToDoStatusHandler() {
   }
 }
 
-addHeader();
-addMain();
-addTitle();
-addUIContainer();
-addInputField();
-addFilter();
-
-addToDoListContainer();
-addDeleteDoneButton();
-addToDoStatusHandler();
-loadStatefromlocalStorage();
-render();
+//add function for even listener filterfunction
+function filterToDoList() {
+  for (let i = 0; i < state.todo.length; i++) {
+    if (selectByID("Open").checked === true) {
+      selectByName("#delBtn").setAttribute("class", "hidden");
+      if (state.todo[i].done) {
+        selectByID(state.todo[i].id).parentElement.parentElement.classList.add(
+          "hidden"
+        );
+      } else {
+        selectByID(
+          state.todo[i].id
+        ).parentElement.parentElement.classList.remove("hidden");
+      }
+    } else if (selectByID("Done").checked === true) {
+      selectByName("#delBtn").classList.remove("hidden");
+      if (!state.todo[i].done) {
+        selectByID(state.todo[i].id).parentElement.parentElement.classList.add(
+          "hidden"
+        );
+      } else {
+        selectByID(
+          state.todo[i].id
+        ).parentElement.parentElement.classList.remove("hidden");
+      }
+    } else {
+      selectByID(state.todo[i].id).parentElement.parentElement.classList.remove(
+        "hidden"
+      );
+      selectByName("#delBtn").classList.remove("hidden");
+    }
+  }
+}
 
 //fuegt neue Todo hinzu
 
@@ -225,56 +287,20 @@ function addNewToDo() {
   }
 }
 
-// adds function to add todo with enter while input is on focus
-const submitBtn = document.querySelector("#addNewToDo");
-submitBtn.addEventListener("click", addNewToDo);
-toDoInput.addEventListener("keyup", function (e) {
-  console.log(e.key);
-  if (["Enter"].includes(e.key)) {
-    addNewToDo();
-  }
-});
-
 function saveToMemory() {
   const jsonOfState = JSON.stringify(state);
   localStorage.setItem("ToDoList", jsonOfState);
 }
 
-//add event listener for filter function
-document
-  .querySelector("#filterContainer")
-  .addEventListener("change", filterToDoList);
+addHeader();
+addMain();
+addTitle();
+addUIContainer();
+addInputField();
+addFilter();
 
-//add function for even listener filterfunction
-function filterToDoList() {
-  for (let i = 0; i < state.todo.length; i++) {
-    if (document.getElementById("Open").checked === true) {
-      document.querySelector("#delBtn").setAttribute("class", "hidden");
-      if (state.todo[i].done) {
-        document
-          .getElementById(state.todo[i].id)
-          .parentElement.parentElement.classList.add("hidden");
-      } else {
-        document
-          .getElementById(state.todo[i].id)
-          .parentElement.parentElement.classList.remove("hidden");
-      }
-    } else if (document.getElementById("Done").checked === true) {
-      document.querySelector("#delBtn").classList.remove("hidden");
-      if (!state.todo[i].done) {
-        document
-          .getElementById(state.todo[i].id)
-          .parentElement.parentElement.classList.add("hidden");
-      } else {
-        document
-          .getElementById(state.todo[i].id)
-          .parentElement.parentElement.classList.remove("hidden");
-      }
-    } else {
-      document
-        .getElementById(state.todo[i].id)
-        .parentElement.parentElement.classList.remove("hidden");
-      document.querySelector("#delBtn").classList.remove("hidden");
-    }
-  }
-}
+addToDoListContainer();
+addDeleteDoneButton();
+addToDoStatusHandler();
+loadStatefromlocalStorage();
+render();
