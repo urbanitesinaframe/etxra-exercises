@@ -33,6 +33,9 @@ function addUIContainer() {
 function addFilter() {
   const createFilterContainer = document.createElement("div");
   createFilterContainer.id = "filterContainer";
+  const createFilterText = document.createElement("p");
+  createFilterText.innerText = "Show: ";
+  createFilterContainer.appendChild(createFilterText);
 
   for (let filterOptionData of state.filter) {
     const newFilterOption = document.createElement("label");
@@ -67,9 +70,9 @@ function addInputField() {
 //Fuegt alle erledigte "Aufgaben-loeschen"-Feld hinzu
 function addDeleteDoneButton() {
   const delBtn = document.createElement("button");
-  delBtn.innerText = "You're great! Now let's remove the done ToDos :)";
+  delBtn.innerText = `Awesome! Delete the "Done"-ToDos, now :)`;
   delBtn.id = "delBtn";
-  uiContainer.appendChild(delBtn);
+  main.appendChild(delBtn);
   delBtn.addEventListener("click", deleteDone);
 }
 //fuegt loeschfunktion hinzu
@@ -82,6 +85,7 @@ function deleteDone() {
   saveToMemory();
   document.getElementById("toDoListContainer").innerHTML = "";
   render();
+  document.getElementById("All").checked = true;
 }
 
 // Fuegt ToListContainer hinzu
@@ -194,10 +198,11 @@ addHeader();
 addMain();
 addTitle();
 addUIContainer();
-addFilter();
-addDeleteDoneButton();
 addInputField();
+addFilter();
+
 addToDoListContainer();
+addDeleteDoneButton();
 addToDoStatusHandler();
 loadStatefromlocalStorage();
 render();
@@ -243,6 +248,7 @@ document
 function filterToDoList() {
   for (let i = 0; i < state.todo.length; i++) {
     if (document.getElementById("Open").checked === true) {
+      document.querySelector("#delBtn").setAttribute("class", "hidden");
       if (state.todo[i].done) {
         document
           .getElementById(state.todo[i].id)
@@ -253,6 +259,7 @@ function filterToDoList() {
           .parentElement.parentElement.classList.remove("hidden");
       }
     } else if (document.getElementById("Done").checked === true) {
+      document.querySelector("#delBtn").classList.remove("hidden");
       if (!state.todo[i].done) {
         document
           .getElementById(state.todo[i].id)
@@ -266,6 +273,7 @@ function filterToDoList() {
       document
         .getElementById(state.todo[i].id)
         .parentElement.parentElement.classList.remove("hidden");
+      document.querySelector("#delBtn").classList.remove("hidden");
     }
   }
 }
