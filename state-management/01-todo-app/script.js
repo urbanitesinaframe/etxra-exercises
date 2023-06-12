@@ -130,9 +130,11 @@ function render() {
 
     for (let toDoListEntry of state.todo) {
       const newToDoListEntry = document.createElement("li");
+      newToDoListEntry.id = toDoListEntry.id + "_liEL";
       const toDoCheckbox = document.createElement("input");
       const newToDoListElLabel = document.createElement("label");
       newToDoListElLabel.setAttribute("for", toDoListEntry.id);
+      newToDoListElLabel.id = toDoListEntry.id + "_labelEl";
       if (toDoListEntry.done === true) {
         newToDoListElLabel.setAttribute("class", "strikeThrough");
       }
@@ -230,4 +232,40 @@ toDoInput.addEventListener("keyup", function (e) {
 function saveToMemory() {
   const jsonOfState = JSON.stringify(state);
   localStorage.setItem("ToDoList", jsonOfState);
+}
+
+//add event listener for filter function
+document
+  .querySelector("#filterContainer")
+  .addEventListener("change", filterToDoList);
+
+//add function for even listener filterfunction
+function filterToDoList() {
+  for (let i = 0; i < state.todo.length; i++) {
+    if (document.getElementById("Open").checked === true) {
+      if (state.todo[i].done) {
+        document
+          .getElementById(state.todo[i].id)
+          .parentElement.parentElement.classList.add("hidden");
+      } else {
+        document
+          .getElementById(state.todo[i].id)
+          .parentElement.parentElement.classList.remove("hidden");
+      }
+    } else if (document.getElementById("Done").checked === true) {
+      if (!state.todo[i].done) {
+        document
+          .getElementById(state.todo[i].id)
+          .parentElement.parentElement.classList.add("hidden");
+      } else {
+        document
+          .getElementById(state.todo[i].id)
+          .parentElement.parentElement.classList.remove("hidden");
+      }
+    } else {
+      document
+        .getElementById(state.todo[i].id)
+        .parentElement.parentElement.classList.remove("hidden");
+    }
+  }
 }
