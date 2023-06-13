@@ -201,17 +201,14 @@ function render() {
     toDoListContainer.appendChild(createToDoList);
     // fügt EventListener zu Checkboxen hinzu und fuehrt function aus
     for (let toDoListEntry of state.todo) {
-      selectByID(toDoListEntry.id).addEventListener(
-        "change",
-        addClassToParentNode
-      );
+      selectByID(toDoListEntry.id).addEventListener("change", changeDone);
     }
   }
   saveToMemory();
 }
 
 //Fügt Funktion beim Auslösen der Checkboxen Eventhandler aus
-function addClassToParentNode(event) {
+function changeDone(event) {
   //find the index of object containing the id matches eventtarget id
   const index = state.todo.findIndex((item) => item.id == event.target.id);
   console.log(index);
