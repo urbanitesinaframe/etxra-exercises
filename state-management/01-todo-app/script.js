@@ -21,26 +21,49 @@ function addElement(tagName, options = {}) {
   }
   return newElement;
 }
+//Hilfsvariable to create id for ToDo Object List Elements
 
-let id = +new Date(); //to create id for ToDo Object List Elements
+let id = +new Date();
+
+// state for status and todos
+let state = {
+  filter: [
+    {
+      id: "All",
+      checked: true,
+    },
+    {
+      id: "Open",
+      checked: false,
+    },
+    {
+      id: "Done",
+      checked: false,
+    },
+  ],
+  todo: [],
+};
 
 //Fuegt Header in den Body
 function addHeader() {
   const newHeaderEl = createHtmlEl("header");
   selectByName("body").insertBefore(newHeaderEl, selectByName("script"));
 }
+
 //Fuegt Titel hinzu
 function addTitle() {
   const newTitle = createHtmlEl("h1");
   newTitle.textContent = "ToDo App";
   selectByName("header").appendChild(newTitle);
 }
+
 // Fuegt main in den body
 function addMain() {
   const newMainEl = createHtmlEl("main");
   newMainEl.id = "main";
   selectByName("body").insertBefore(newMainEl, selectByName("script"));
 }
+
 // Fuegt UI-container in den body
 function addUIContainer() {
   const createUIcontainer = addElement("div", {
@@ -48,6 +71,7 @@ function addUIContainer() {
   });
   main.appendChild(createUIcontainer);
 }
+
 //Fügt Filterbuttons in den UI Container
 function addFilter() {
   const createFilterContainer = createHtmlEl("div");
@@ -57,14 +81,16 @@ function addFilter() {
   createFilterContainer.appendChild(createFilterText);
 
   for (let filterOptionData of state.filter) {
-    const newFilterOption = createHtmlEl("label");
-    newFilterOption.for = filterOptionData.id;
-    newFilterOption.innerText = filterOptionData.id;
-    const newFilterStatus = createHtmlEl("input");
-    newFilterStatus.type = "radio";
-    newFilterStatus.name = "filter";
-    newFilterStatus.id = filterOptionData.id;
-    newFilterStatus.checked = filterOptionData.checked;
+    const newFilterOption = addElement("label", {
+      for: filterOptionData.id,
+      innerText: filterOptionData.id,
+    });
+    const newFilterStatus = addElement("input", {
+      type: "radio",
+      name: "filter",
+      id: filterOptionData.id,
+      checked: filterOptionData.checked,
+    });
     createFilterContainer.appendChild(newFilterOption);
     createFilterContainer.appendChild(newFilterStatus);
   }
@@ -72,6 +98,7 @@ function addFilter() {
   //add event listener for filter function
   selectByName("#filterContainer").addEventListener("change", filterToDoList);
 }
+
 //Fuegt Eingabefeld hinzu
 function addInputField() {
   const inputContainer = addElement("div", {
@@ -103,6 +130,7 @@ function addInputField() {
     }
   });
 }
+
 //Fuegt alle erledigte "Aufgaben-loeschen"-Feld hinzu
 function addDeleteDoneButton() {
   const delBtn = addElement("button", {
@@ -113,6 +141,7 @@ function addDeleteDoneButton() {
   main.appendChild(delBtn);
   delBtn.addEventListener("click", deleteDone);
 }
+
 //fuegt loeschfunktion hinzu
 function deleteDone() {
   for (let i = state.todo.length - 1; i >= 0; i--) {
@@ -133,40 +162,12 @@ function addToDoListContainer() {
   main.appendChild(createNewArticleEl);
 }
 
-// state for status and todos
-let state = {
-  filter: [
-    {
-      id: "All",
-      checked: true,
-    },
-    {
-      id: "Open",
-      checked: false,
-    },
-    {
-      id: "Done",
-      checked: false,
-    },
-  ],
-  todo: [],
-};
-
-//lade aus der memory
-function loadStatefromlocalStorage() {
-  if (localStorage.ToDoList !== undefined) {
-    let loadedState = JSON.parse(localStorage.ToDoList);
-    state = loadedState;
-  } else {
-    console.warn("No name found!");
-  }
-}
-
 //create ToDo list elements in html//
 function render() {
   if (state.todo.length === 0) {
     toDoListContainer.innerHTML = "Type in your 1st ToDo to create a list";
   } else {
+    toDoListContainer.innerHTML = "";
     const createToDoList = createHtmlEl("ul");
     createToDoList.id = "toDoList";
 
@@ -187,8 +188,10 @@ function render() {
         id: toDoListEntry.id + "_labelEl",
         innerText: toDoListEntry.description,
       });
-      if (toDoListEntry.done === true) {
-        newToDoListElLabel.setAttribute("class", "strikeThrough");
+      if (toDoListEntry.done) {
+        newToDoListElLabel.classList.add("strikeThrough");
+      } else {
+        newToDoListElLabel.classList.remove("strikeThrough");
       }
 
       newToDoListEntry.appendChild(newToDoListElLabel);
@@ -207,71 +210,45 @@ function render() {
   saveToMemory();
 }
 
+//Fügt Funktion beim Auslösen der Checkboxen Eventhandler aus
 function addClassToParentNode(event) {
-  let thislabel = selectByID(event.target.id).parentNode.classList;
-  console.log(event.target.id);
-  if (thislabel.contains("strikeThrough")) {
-    //find the index of object containing the id matches eventtarget id
-    const index = state.todo.findIndex((item) => item.id == event.target.id);
-    console.log(index);
-    thislabel.remove("strikeThrough");
+  //find the index of object containing the id matches eventtarget id
+  const index = state.todo.findIndex((item) => item.id == event.target.id);
+  console.log(index);
+  if (!event.target.checked && state.todo[index].done) {
     state.todo[index].done = false;
-  } else {
-    const index = state.todo.findIndex((item) => item.id == event.target.id);
-    console.log(index);
-    thislabel.add("strikeThrough");
+  } else if (event.target.checked && !state.todo[index].done) {
     state.todo[index].done = true;
   }
-  saveToMemory();
+  render();
+  filterToDoList();
 }
 
-//Fügt Eventhandler für checkboxen hinzu
-function addToDoStatusHandler() {
-  for (let toDoListEntry of state.todo) {
-    const newCheckboxHandler = selectByID(toDoListEntry.id);
-    newCheckboxHandler.addEventListener(
-      "change",
-      newCheckboxHandler.parentNode.classList.toggle("strikeThrough")
-    );
-  }
-}
-
-//add function for even listener filterfunction
+//add function for event listener filterfunction
 function filterToDoList() {
   for (let i = 0; i < state.todo.length; i++) {
-    if (selectByID("Open").checked === true) {
+    if (selectByID("Open").checked) {
       selectByName("#delBtn").setAttribute("class", "hidden");
       if (state.todo[i].done) {
-        selectByID(state.todo[i].id).parentElement.parentElement.classList.add(
-          "hidden"
-        );
+        selectByID(state.todo[i].id + "_liEL").classList.add("hidden");
       } else {
-        selectByID(
-          state.todo[i].id
-        ).parentElement.parentElement.classList.remove("hidden");
+        selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
       }
-    } else if (selectByID("Done").checked === true) {
+    } else if (selectByID("Done").checked) {
       selectByName("#delBtn").classList.remove("hidden");
       if (!state.todo[i].done) {
-        selectByID(state.todo[i].id).parentElement.parentElement.classList.add(
-          "hidden"
-        );
+        selectByID(state.todo[i].id + "_liEL").classList.add("hidden");
       } else {
-        selectByID(
-          state.todo[i].id
-        ).parentElement.parentElement.classList.remove("hidden");
+        selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
       }
-    } else {
-      selectByID(state.todo[i].id).parentElement.parentElement.classList.remove(
-        "hidden"
-      );
+    } else if (selectByID("All").checked) {
+      selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
       selectByName("#delBtn").classList.remove("hidden");
     }
   }
 }
 
 //fuegt neue Todo hinzu
-
 function addNewToDo() {
   if (toDoInput.value.length < 3) {
     alert("Please add a task with more than 2 Letters!");
@@ -287,9 +264,20 @@ function addNewToDo() {
   }
 }
 
+//speichert den State in die localMemory
 function saveToMemory() {
   const jsonOfState = JSON.stringify(state);
   localStorage.setItem("ToDoList", jsonOfState);
+}
+
+//lade aus der memory
+function loadStatefromlocalStorage() {
+  if (localStorage.ToDoList !== undefined) {
+    let loadedState = JSON.parse(localStorage.ToDoList);
+    state = loadedState;
+  } else {
+    console.warn("No name found!");
+  }
 }
 
 addHeader();
@@ -298,9 +286,7 @@ addTitle();
 addUIContainer();
 addInputField();
 addFilter();
-
 addToDoListContainer();
 addDeleteDoneButton();
-addToDoStatusHandler();
 loadStatefromlocalStorage();
 render();
