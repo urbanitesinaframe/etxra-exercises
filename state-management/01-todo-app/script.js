@@ -96,7 +96,7 @@ function addFilter() {
   }
   uiContainer.appendChild(createFilterContainer);
   //add event listener for filter function
-  selectByName("#filterContainer").addEventListener("change", filterToDoList);
+  selectByName("#filterContainer").addEventListener("change", render);
 }
 
 //Fuegt Eingabefeld hinzu
@@ -171,7 +171,16 @@ function render() {
     const createToDoList = createHtmlEl("ul");
     createToDoList.id = "toDoList";
 
-    for (let toDoListEntry of state.todo) {
+    let todos = [];
+    if (selectByID("Open").checked) {
+      todos = state.todo.filter((todo) => todo.done === false);
+    } else if (selectByID("Done").checked) {
+      todos = state.todo.filter((todo) => todo.done === true);
+    } else {
+      todos = state.todo;
+    }
+
+    for (let toDoListEntry of todos) {
       const newToDoListEntry = addElement("li", {
         id: toDoListEntry.id + "_liEL",
       });
@@ -194,56 +203,65 @@ function render() {
         newToDoListElLabel.classList.remove("strikeThrough");
       }
 
+      toDoCheckbox.addEventListener("change", changeDone);
+
       newToDoListEntry.appendChild(newToDoListElLabel);
       newToDoListElLabel.appendChild(toDoCheckbox);
       createToDoList.appendChild(newToDoListEntry);
     }
+
     toDoListContainer.appendChild(createToDoList);
-    // fügt EventListener zu Checkboxen hinzu und fuehrt function aus
+
+    // // fügt EventListener zu Checkboxen hinzu und fuehrt function aus
     for (let toDoListEntry of state.todo) {
       selectByID(toDoListEntry.id).addEventListener("change", changeDone);
     }
   }
-  saveToMemory();
+  // saveToMemory();
 }
 
 //Fügt Funktion beim Auslösen der Checkboxen Eventhandler aus
 function changeDone(event) {
   //find the index of object containing the id matches eventtarget id
+
   const index = state.todo.findIndex((item) => item.id == event.target.id);
   console.log(index);
-  if (!event.target.checked && state.todo[index].done) {
-    state.todo[index].done = false;
-  } else if (event.target.checked && !state.todo[index].done) {
-    state.todo[index].done = true;
-  }
+
+  state.todo[index].done = event.target.checked;
+  // if (!event.target.checked && state.todo[index].done) {
+  //   state.todo[index].done = false;
+  // } else if (event.target.checked && !state.todo[index].done) {
+  //   state.todo[index].done = true;
+  // }
+
+  saveToMemory();
   render();
-  filterToDoList();
+  //filterToDoList();
 }
 
 //add function for event listener filterfunction
-function filterToDoList() {
-  for (let i = 0; i < state.todo.length; i++) {
-    if (selectByID("Open").checked) {
-      selectByName("#delBtn").setAttribute("class", "hidden");
-      if (state.todo[i].done) {
-        selectByID(state.todo[i].id + "_liEL").classList.add("hidden");
-      } else {
-        selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
-      }
-    } else if (selectByID("Done").checked) {
-      selectByName("#delBtn").classList.remove("hidden");
-      if (!state.todo[i].done) {
-        selectByID(state.todo[i].id + "_liEL").classList.add("hidden");
-      } else {
-        selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
-      }
-    } else if (selectByID("All").checked) {
-      selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
-      selectByName("#delBtn").classList.remove("hidden");
-    }
-  }
-}
+// function filterToDoList() {
+//   for (let i = 0; i < state.todo.length; i++) {
+//     if (selectByID("Open").checked) {
+//       selectByName("#delBtn").setAttribute("class", "hidden");
+//       if (state.todo[i].done) {
+//         selectByID(state.todo[i].id + "_liEL").classList.add("hidden");
+//       } else {
+//         selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
+//       }
+//     } else if (selectByID("Done").checked) {
+//       selectByName("#delBtn").classList.remove("hidden");
+//       if (!state.todo[i].done) {
+//         selectByID(state.todo[i].id + "_liEL").classList.add("hidden");
+//       } else {
+//         selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
+//       }
+//     } else if (selectByID("All").checked) {
+//       selectByID(state.todo[i].id + "_liEL").classList.remove("hidden");
+//       selectByName("#delBtn").classList.remove("hidden");
+//     }
+//   }
+// }
 
 //fuegt neue Todo hinzu
 function addNewToDo() {
