@@ -16,7 +16,24 @@ function changeBackgroundColor() {
   root.style.setProperty("--newColor", color);
   document.querySelector("#hexcode").innerText = color;
 }
+
+function randomColor() {
+  fetch("https://dummy-apis.netlify.app/api/color")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      root.style.setProperty("--newColor", data.color);
+      document.querySelector("#hexcode").innerText = data.color;
+      document.querySelector("#redSlider").value = data.rgb.r;
+      document.querySelector("#greenSlider").value = data.rgb.g;
+      document.querySelector("#blueSlider").value = data.rgb.b;
+    });
+}
+
 // wichtig, damit der farbwert beim laden des scripts schon angegeben wird
 changeBackgroundColor();
 
 document.body.addEventListener("input", changeBackgroundColor);
+
+document.getElementById("randomColor").addEventListener("click", randomColor);
