@@ -151,6 +151,20 @@ form {
   font-weight: var(--emp);
   _margin: 1rem;
   _margin-left: 0;
+  
+
+}
+
+.price::-webkit-outer-spin-button,
+.price::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.price[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 #currency {
